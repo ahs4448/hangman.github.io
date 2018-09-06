@@ -1,0 +1,47 @@
+h1{
+color: blue;
+font-family: "Press Start 2P";
+text-align: center;
+font-size: 4em;
+margin-bottom: 2px;
+}
+
+h2{
+	font-family: "Press Start 2P";
+  margin-top: 0px;
+}
+
+h3{
+	font-family: "Press Start 2P";
+}
+
+p{
+	font-family: "Press Start 2P";
+}
+
+body{
+background-color: grey;
+}
+
+button{
+	margin: 4px;
+	padding: 10px;
+	background-color: #1253BC;
+	font-family: "Press Start 2P";
+
+}
+
+button:hover {
+
+background-color: navy;
+
+}
+
+div{
+	padding:250px;
+	margin-right:80px;
+	margin-left:80px;
+	background-color: blue;
+	border: 10px dotted green;
+}
+
