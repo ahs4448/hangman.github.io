@@ -1,112 +1,140 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Hangman Game</title>
 	<link rel="stylesheet" type="text/css" href="hangman.css">
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="hangman.js"></script>
 
 </head>
+
 <body>
-<h1>HANGMAN</h1>
+	<div>
+
+		<h1>HANGMAN</h1>
+
+
+
+		<h2>Press any key to get started!!</h2>
+
+		<h3>Wins</h3>
+
+
+		<h3 class="win">Current Word</h3>
+
+		<p id="missingWord"></p>
+
+
+
+		<h3>Number of guesses remaining:<br><span id="Chances"> </span></h3>
+
+		
+		<br>
+
+		<br>
+		<button class="letter">A</button>
+		<button class="letter">B</button>
+		<button class="letter">C</button>
+		<button class="letter">D</button>
+		<button class="letter">E</button>
+		<button class="letter">F</button>
+		<button class="letter">G</button>
+		<button class="letter">H</button>
+		<button class="letter">I</button>
+		<button class="letter">J</button>
+		<button class="letter">K</button>
+		<button class="letter">L</button>
+		<button class="letter">M</button>
+		<button class="letter">N</button>
+		<button class="letter">O</button>
+		<button class="letter">P</button>
+		<button class="letter">Q</button>
+		<button class="letter">R</button>
+		<button class="letter">S</button>
+		<button class="letter">T</button>
+		<button class="letter">U</button>
+		<button class="letter">V</button>
+		<button class="letter">W</button>
+		<button class="letter">X</button>
+		<button class="letter">Y</button>
+		<button class="letter">Z</button>
+		<br>
+
+
+		<button id="hint"> HINT</button>
+
+		<p id="help"></p>
+
+		<script>
+
+            
+			var SecretWords = ["INTERNET", "COMPUTER", "WIFI", "ETHERNET", "PROCESSER", "SERVER", "BANDWIDTH", "MALWARE"];
+			var ChosenWord = SecretWords[Math.floor(Math.random() * SecretWords.length)];
+			var PossibleGuesses = ChosenWord.split("");
+			var answerArr = []
+			
+			console.log(ChosenWord)
+
+			// this creates the underscores or blank spaces indicating the length of the word
+			for (var i = 0; i < ChosenWord.length; i++) {
+				answerArr[i] = "_";
+               $("#missingWord").append("_")
+			}
+
+
+			// this is where the user guess is supposed to be compared to the random word,and if corrected should be appended to every part
+			// of the word where it occurs
+var right = 0;
+var wrong = 0;
+			$(".letter").one("click", function () {
+     
+				let letterClick = $(this).text().trim();
+				$(this).css({"background-color": "black","color": "blue"})
+
+				for (var i = 0; i < ChosenWord.length; i++) {
+
+					if (letterClick == ChosenWord[i]){
+					     answerArr[i] = letterClick;
+
+						document.getElementById("missingWord").innerHTML = answerArr.join("");
+						right ++;
+					} if(right === ChosenWord.length){
+						$("h3").text("You Win!")
+					}else{
+						wrong ++;
+					} if (wrong === ChosenWord.length * 6){
+						alert("you lose")
+					}
+					
+					
+				}
+			})
+			
+		</script>
+
+	</div>
+</body>
+
+</html>
 
 
 
 
-<div>
-	
-	<h2>Press any key to get started!!</h2>
+<!-- what I have so far:
+random regenerating words turned into arrays
+corresponding amount of underscores representing the word
+amount of guesses decrementing when wrong letter is guessed.
 
-  <h3>Wins</h3>
-
-
-<h3>Current Word</h3>
-
-<p id="missingWord">_ _ _ _ _ _ _ _ _ _ </p>
-
-
-
-
-
-<h3 id="chances">Number of guesses remaining:<span> 0</span></h3>
-
-<h3>Letters already guessed:</h3>
-
-<br>
-<br>
-<button id ="A">A</button>
-<button id ="B">B</button>
-<button id ="C">C</button>
-<button id ="D">D</button>
-<button id ="E">E</button>
-<button id ="F">F</button>
-<button id ="G">G</button>
-<button id ="H">H</button>
-<button id ="I">I</button>
-<button id ="J">J</button>
-<button id ="K">K</button>
-<button id ="L">L</button>
-<button id ="M">M</button>
-<button id ="N">N</button>
-<button id ="O">O</button>
-<button id ="P">P</button>
-<button id ="Q">Q</button>
-<button id ="R">R</button>
-<button id ="S">S</button>
-<button id ="T">T</button>
-<button id ="U">U</button>
-<button id ="V">V</button>
-<button id ="W">W</button>
-<button id ="X">X</button>
-<button id ="Y">Y</button>
-<button id ="Z">Z</button>
-
-
-
-<script>
-
-//Javascript
-
-//first, I need to store the word to be guessed
-
-var SecretWord = [" "," "," "," "," "," "," "];
-
-
-
-
-//Now I need to attach event handlers to each button,
-/*var arr = []
-
-str.length
-
-document.getElementById("A").addEventListener("click", () => {
-
-alert("A")
-})
-
-document.getElementById("B").addEventListener("click", () => {
-alert("B")*/
-
-
-// I need a conditional to check if a clicked letter is in the missing word,
-
-
-
-
-
-
-
-$("button").on("click", function(){
-
- var letterClick = $(this).text().trim();
-
- $("#missingWord").append(letterClick);
-
-
-});  
-
-
+whats left that I need:
+to check the array that is the word to be guessed and
+compare it to the letter that is clicked
+if correct, show up at every instance in the word where the letter is located
+possible methods I may need:
+.search()
+.charAt()
+.indexOf()
+-->
 
 
 
@@ -123,11 +151,7 @@ $("button").on("click", function(){
 
 
 
-</script>
 
-</div>
-</body>
-</html>
 
 
 
