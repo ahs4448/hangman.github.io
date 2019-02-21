@@ -69,46 +69,57 @@
 		<script>
 
             
-			var SecretWords = ["INTERNET", "COMPUTER", "WIFI", "ETHERNET", "PROCESSER", "SERVER", "BANDWIDTH", "MALWARE"];
+		
+			var SecretWords = ["INTERNET", "COMPUTER", "WIFI", "ETHERNET", "PROCESSOR", "SERVER", "BANDWIDTH", "MALWARE"];
 			var ChosenWord = SecretWords[Math.floor(Math.random() * SecretWords.length)];
-			var PossibleGuesses = ChosenWord.split("");
+			// var PossibleGuesses = ChosenWord.split("");
 			var answerArr = []
-			
+
+
 			console.log(ChosenWord)
 
 			// this creates the underscores or blank spaces indicating the length of the word
 			for (var i = 0; i < ChosenWord.length; i++) {
 				answerArr[i] = "_";
-               $("#missingWord").append("_")
+				$("#missingWord").append("_")
 			}
 
 
 			// this is where the user guess is supposed to be compared to the random word,and if corrected should be appended to every part
 			// of the word where it occurs
-var right = 0;
-var wrong = 0;
+
+
+			var right = 0;
+			let wrong = 0;
 			$(".letter").one("click", function () {
-     
+
 				let letterClick = $(this).text().trim();
-				$(this).css({"background-color": "black","color": "blue"})
+				$(this).css({ "background-color": "black", "color": "blue" })
 
 				for (var i = 0; i < ChosenWord.length; i++) {
 
-					if (letterClick == ChosenWord[i]){
-					     answerArr[i] = letterClick;
+					if (letterClick == ChosenWord[i]) {
+						answerArr[i] = letterClick;
 
 						document.getElementById("missingWord").innerHTML = answerArr.join("");
-						right ++;
-					} if(right === ChosenWord.length){
-						$("h3").text("You Win!")
-					}else{
-						wrong ++;
-					} if (wrong === ChosenWord.length * 6){
-						alert("you lose")
+						right++;
+						wrong = 0;
 					}
-					
-					
+
+				} if (right === ChosenWord.length) {
+					$("#result").text("You Win!")
 				}
+				else {
+
+			       wrong++;
+				}
+				if (wrong === 7) {
+					$("#result").text("You Lose")
+					$(".letter").hide()
+					$("#missingWord").text(ChosenWord)
+				}
+
+
 			})
 			
 		</script>
