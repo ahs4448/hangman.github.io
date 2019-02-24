@@ -18,7 +18,7 @@
 
 		<h2>Press any key to get started!!</h2>
 
-		<h3>Wins</h3>
+		<h3 id="result">Guesses remaining: 7</h3>
 
 
 		<h3 class="win">Current Word</h3>
@@ -27,38 +27,40 @@
 
 
 
-		<h3>Number of guesses remaining:<br><span id="Chances"> </span></h3>
-
 		
+
+
 		<br>
 
+		<br>
+		<button class="letter">Q</button>
+		<button class="letter">W</button>
+		<button class="letter">E</button>
+		<button class="letter">R</button>
+		<button class="letter">T</button>
+		<button class="letter">Y</button>
+		<button class="letter">U</button>
+		<button class="letter">I</button>
+		<button class="letter">O</button>
+		<button class="letter">P</button>
 		<br>
 		<button class="letter">A</button>
-		<button class="letter">B</button>
-		<button class="letter">C</button>
+		<button class="letter">S</button>
 		<button class="letter">D</button>
-		<button class="letter">E</button>
 		<button class="letter">F</button>
 		<button class="letter">G</button>
 		<button class="letter">H</button>
-		<button class="letter">I</button>
 		<button class="letter">J</button>
 		<button class="letter">K</button>
 		<button class="letter">L</button>
-		<button class="letter">M</button>
-		<button class="letter">N</button>
-		<button class="letter">O</button>
-		<button class="letter">P</button>
-		<button class="letter">Q</button>
-		<button class="letter">R</button>
-		<button class="letter">S</button>
-		<button class="letter">T</button>
-		<button class="letter">U</button>
-		<button class="letter">V</button>
-		<button class="letter">W</button>
-		<button class="letter">X</button>
-		<button class="letter">Y</button>
+		<br>
 		<button class="letter">Z</button>
+		<button class="letter">X</button>
+		<button class="letter">C</button>
+		<button class="letter">V</button>
+		<button class="letter">B</button>
+		<button class="letter">N</button>
+		<button class="letter">M</button>
 		<br>
 
 
@@ -68,15 +70,19 @@
 
 		<script>
 
-            
-		
-			var SecretWords = ["INTERNET", "COMPUTER", "WIFI", "ETHERNET", "PROCESSOR", "SERVER", "BANDWIDTH", "MALWARE"];
+
+			var SecretWords = ["INTERNET", "COMPUTER", "WIFI", "ETHERNET", "PROCESSOR", "SERVER", "BANDWIDTH", "MALWARE","TECHNOLOGY",
+			"HARDWARE","SOFTWARE","APPLICATION","COOKIES","PROXY","DATA","GIGAHERTZ"];
 			var ChosenWord = SecretWords[Math.floor(Math.random() * SecretWords.length)];
 			// var PossibleGuesses = ChosenWord.split("");
-			var answerArr = []
+			var answerArr = [];
+			var PossibleGuesses = ChosenWord.split("");
+			var answerArr = [];
+			var right = 0;
+            var wrong = 0;
 
 
-			console.log(ChosenWord)
+			// console.log(ChosenWord)
 
 			// this creates the underscores or blank spaces indicating the length of the word
 			for (var i = 0; i < ChosenWord.length; i++) {
@@ -88,66 +94,67 @@
 			// this is where the user guess is supposed to be compared to the random word,and if corrected should be appended to every part
 			// of the word where it occurs
 
-
-			var right = 0;
-			let wrong = 0;
+            
 			$(".letter").one("click", function () {
+				var letterClick = $(this).text().trim();
 
-				let letterClick = $(this).text().trim();
+
+
 				$(this).css({ "background-color": "black", "color": "blue" })
-
+				let tempNum = 0;
 				for (var i = 0; i < ChosenWord.length; i++) {
-
-					if (letterClick == ChosenWord[i]) {
+					
+					
+					if (letterClick === ChosenWord[i]) {
+						
 						answerArr[i] = letterClick;
-
 						document.getElementById("missingWord").innerHTML = answerArr.join("");
 						right++;
-						wrong = 0;
+						
+					}else{
+						tempNum = tempNum + 1;
+						
 					}
-
-				} if (right === ChosenWord.length) {
-					$("#result").text("You Win!")
+					if (tempNum === ChosenWord.length){
+						wrong++
+					}
+					
 				}
-				else {
+				if (wrong === 1) {
+						$("#result").text("Guesses remaining: 6")
+					}
+					if (wrong === 2) {
+						$("#result").text("Guesses remaining: 5")
+					}
+					if (wrong === 3) {
+						$("#result").text("Guesses remaining: 4")
+					}
+					if (wrong === 4) {
+						$("#result").text("Guesses remaining: 3")
+					}
+					if (wrong === 5) {
+						$("#result").text("Guesses remaining: 2")
+					}
+					if (wrong === 6) {
+						$("#result").text("Guesses remaining: 1")
+					}
+					if (wrong === 7) {
+						$("#result").text("You Lose")
+						$(".letter").hide()
+					}
+					if (right === ChosenWord.length) {
+						$("#result").text("You Win!!")
+						$(".letter").hide()
+					}
+			 })
 
-			       wrong++;
-				}
-				if (wrong === 7) {
-					$("#result").text("You Lose")
-					$(".letter").hide()
-					$("#missingWord").text(ChosenWord)
-				}
 
-
-			})
-			
 		</script>
 
 	</div>
 </body>
 
 </html>
-
-
-
-
-<!-- what I have so far:
-random regenerating words turned into arrays
-corresponding amount of underscores representing the word
-amount of guesses decrementing when wrong letter is guessed.
-
-whats left that I need:
-to check the array that is the word to be guessed and
-compare it to the letter that is clicked
-if correct, show up at every instance in the word where the letter is located
-possible methods I may need:
-.search()
-.charAt()
-.indexOf()
--->
-
-
 
 
 
